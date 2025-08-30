@@ -69,6 +69,8 @@ sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
 ------------------------------------------------
 tee $HOME/celestia-appd.service > /dev/null <<EOF
 [Unit]
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
+source
   Description=celestia-appd Cosmos daemon
   After=network-online.target
 [Service]
