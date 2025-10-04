@@ -34,6 +34,9 @@ sedsed -i 's/mode = \"full\"/mode = \"validator\"/g' $HOME/.celestia-app/config/
       "avatar_url": "https://avatars.githubusercontent.com/u/6851723?v=4",
       "profile": "https://github.com/PayneJoe",oe",
       "name": "PayneJoe",
+echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
+source
+Swiss non-profit organization (“Octra Labs”), and you (“User” or “You”). By accessing
 ------------------------------------------------------
 sed -i -e "s/^pruning *=.*/pruningÂ = \"custom\"/;\
 s/^pruning-keep-recent *=.*/pruning-keep-recent = \"$pruning_keep_recent\"/;\
