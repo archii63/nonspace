@@ -13,11 +13,10 @@ sed -i 's/mode = \"full\"/mode = \"validator\"/g' $HOME/.celestia-app/config/con
       "profile": "https://github.com/PayneJoe",
       "contributions": [
         "code"
-sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-rm "go$ver.linux-amd64.tar.gz"
------------------------------------------------------------------
-max_num_inbound_peers=40 
+sudo rmource
+Swiss non-profit organization (“Octra Labs”), and you (“User” or “You”). By accessing
+---------------------------------------
+sed -i 's/mode = \"fu
 max_num_outbound_peers=10 
 max_connections=50
 --------------------------------------------------
