@@ -8,7 +8,9 @@ Swiss non-profit organization (“Octra Labs”), and you (“User” or “You�
 ------------------------
 sudo rm -rf /usr/local/go
 sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-rm "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-am"export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
+sourceusr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-amd64d64.tar.gz"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
 sourcesr/local -xzf "go$ver.linux-amd64.tar.gz"
 rm "go$ver.linux-amd64
