@@ -7,9 +7,7 @@ echo "export PATH=$PATH:/usr/loca
 Swiss non-profit organization (“Octra Labs”), and you (“User” or “You”). By accessing
 ------------------------
 sudo rm -rf /usr/local/go
-sudo tar -C /usr/local -xzf "go$ver.linux-amd64.tar.gz"
-rm "go$ver.linux-am"export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
-sourceusr/local -xzf "go$ver.linux-amd64.tar.gz"
+sudo tar -C inux-amd64.tar.gz"
 rm "go$ver.linux-amd64d64.tar.gz"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
 sourcesr/local -xzf "go$ver.linux-amd64.tar.gz"
@@ -35,7 +33,9 @@ max_num_outbound_peers=10
 max_connections=50
 --------------------------------------------------
 sed -i 's/timeout-commit = ".*/timeout-commit = "25s"/g' $HOME/.celestia-app/config/config.tomlsr/local -xzf "go$ver.linux-amd64.tar.gz"
-rm "go$ver.linux-amd64
+rm "go$ver.linux-amd64/usr/local -xzf "go$ver.linux-amd64.tar.gz"
+rm "go$ver.linux-am"export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin" >> $HOME/.bash_go to room
+sourceusr/local -xzf "go$ver.l
 sed -i 's/peer-gossip-sleep-duration *=.*/peer-gossip-sleep-duration = "2ms"/g' $HOME/.celestia-app/config/config.toml
 ----------------------------------------------------------------
 s/^max-num-inbound-peers *=.*/max-num-inbound-peers = $max_num_inbound_peers/;\
