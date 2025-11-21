@@ -1,0 +1,116 @@
+# Remote Gas Valve Simulator (SAFE, For Development Only)
+
+**IMPORTANT — SAFETY NOTICE**
+This repository contains a **simulator** for educational and development purposes ONLY.
+**Do NOT** use this code with real gas appliances, valves, or any hardware that controls fuel, gas, or other hazardous systems.
+Remote control of gas valves is dangerous and may be illegal. Consult certified professionals and follow all local regulations.
+
+## What this project is
+- A small Node.js + Express mock service that simulates a gas-valve state.
+- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
+- Provides endpoints to query simulated status and to request simulated actions (which only update an in-memory state and log events).
+
+## Not allowed / Not provided
+- No code to interface with real hardware.
+- No instructions for bypassing safety systems.
+- Not for deployment in production environments controlling hazardous systems.
+
+## Usage (development)
+1. `git clone <this-repo>`
+2. `npm install`
+3. `npm start` (starts server on port 3000)
+4. Endpoints:
+   - `GET /status` -> returns simulated state `{ "valve": "closed" }`
+   - `POST /simulate/open` -> set simulated valve to "open" (logs action)
+   - `POST /simulate/close` -> set simulated valve to "closed" (logs action)
+
+## Contributing
+- Keep changes limited to simulation, logging, testing, and UX improvements.
+- Never add hardware control code to this repository.
+
+## License
+MIT
+/**
+ * Remote Gas Valve Simulator (SAFE)
+ * DO NOT CONNECT THIS TO REAL HARDWARE.
+ *
+ * This simple Express app simulates a gas valve for development and testing only.
+ * It uses an in-memory state and logs requests. It intentionally DOES NOT include
+ * any hardware libraries, network protocols for controllers, or credentials.
+ */
+
+const express = require('express');
+const morgan = require('morgan');
+
+const app = express();
+app.use(express.json());
+app.use(morgan('dev'));
+
+// Strong runtime guard: explicit environment variable required to allow simulation endpoints.
+// This prevents accidental invocation in environments that are not explicitly set up.
+const ENABLE_SIM = process.env.ENABLE_GAS_SIM === '1';
+if (!ENABLE_SIM) {
+  console.warn('WARNING: Gas simulator endpoints are disabled. Set ENABLE_GAS_SIM=1 to enable them (development only).');
+}
+
+// In-memory simulated valve state
+let simulatedValveState = 'closed'; // possible values: 'closed', 'open'
+
+// Utility: log with prominent safety prefix
+function safetyLog(message) {
+  console.log(`[GAS-SIM-SAFE] ${new Date().toISOString()} - ${message}`);
+}
+
+// Public status endpoint (safe)
+app.get('/status', (req, res) => {
+  res.json({
+    valve: simulatedValveState,
+    note: 'This is a SIMULATED state for development only. Do not use with real hardware.'
+  });
+});
+
+// Simulation endpoints — require explicit env var
+app.post('/simulate/open', (req, res) => {
+  if (!ENABLE_SIM) return res.status(403).json({ error: 'Simulator disabled. Set ENABLE_GAS_SIM=1 in env (development only).' });
+
+  // Simulate safety checks (purely logical)
+  const allowed = true; // extend with rules for testing; still purely simulated
+  if (!allowed) {
+    safetyLog('Attempt to open simulated valve denied by policy.');
+    return res.status(400).json({ error: 'Action not allowed by simulation policy.' });
+  }
+
+  simulatedValveState = 'open';
+  safetyLog('Simulated valve set to OPEN by client ' + (req.ip || 'unknown'));
+  res.json({ valve: simulatedValveState, simulated: true });
+});
+
+app.post('/simulate/close', (req, res) => {
+  if (!ENABLE_SIM) return res.status(403).json({ error: 'Simulator disabled. Set ENABLE_GAS_SIM=1 in env (development only).' });
+
+  simulatedValveState = 'closed';
+  safetyLog('Simulated valve set to CLOSED by client ' + (req.ip || 'unknown'));
+  res.json({ valve: simulatedValveState, simulated: true });
+});
+
+// Health endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', simEnabled: ENABLE_SIM ? true : false });
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Gas Valve Simulator (SAFE) listening on port ${port}. Simulator enabled: ${ENABLE_SIM ? 'YES' : 'NO'}`);
+});
+{
+  "name": "gas-valve-simulator-safe",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "morgan": "^1.10.0"
+  }
+}
