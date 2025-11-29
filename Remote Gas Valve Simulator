@@ -60,6 +60,7 @@ let simulatedValveState = 'closed'; // possible values: 'closed', 'open'
 function safetyLog(message) {
   console.log(`[GAS-SIM-SAFE] ${new Date().toISOString()} - ${message}`);
 }
+- A small Node.js + Express mock service that simulates a gas-valve state.
 
 // Public status endpoint (safe)
 app.get('/status', (req, res) => {
