@@ -14,7 +14,8 @@ Remote control of gas valves is dangerous and may be illegal. Consult certified 
 - No code to interface with real hardware.
 - No instructions for bypassing safety systems.
 - Not for deployment in production environments controlling hazardous systems.
-
+A small Node.js + Express mock service that simulates a gas-valve state.
+- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
 ## Usage (development)
 1. `git clone <this-repo>`
 2. `npm install`
