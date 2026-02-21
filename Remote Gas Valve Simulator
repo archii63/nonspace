@@ -5,13 +5,6 @@ This repository contains a **simulator** for educational and development purpose
 **Do NOT** use this code with real gas appliances, valves, or any hardware that controls fuel, gas, or other hazardous systems.
 Remote control of gas valves is dangerous and may be illegal. Consult certified professionals and follow all local regulations.
 
-## What this project is
-- A small Node.js + Express mock service that simulates a gas-valve state.
-- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
-- Provides endpoints to query simulated status and to request simulated actions (which only update an in-memory state and log events).
-- A small Node.js + Express mock service that simulates a gas-valve state.
-- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
-## Not allowed / Not provided
 - No code to interface with real hardware.
 - No instructions for bypassing safety systems.
 - Not for deployment in production environments controlling hazardous systems.
@@ -48,12 +41,13 @@ const app = express();
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Strong runtime guard: explicit environment variable required to allow simulation endpoints.
-// This prevents accidental invocation in environments that are not explicitly set up.
-const ENABLE_SIM = process.env.ENABLE_GAS_SIM === '1';
-if (!ENABLE_SIM) {
-  console.warn('WARNING: Gas simulator endpoints are disabled. Set ENABLE_GAS_SIM=1 to enable them (development only).');
-}
+## What this project is
+- A small Node.js + Express mock service that simulates a gas-valve state.
+- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
+- Provides endpoints to query simulated status and to request simulated actions (which only update an in-memory state and log events).
+- A small Node.js + Express mock service that simulates a gas-valve state.
+- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
+## Not allowed / Not provided
 
 // In-memory simulated valve state
 let simulatedValveState = 'closed'; // possible values: 'closed', 'open'
