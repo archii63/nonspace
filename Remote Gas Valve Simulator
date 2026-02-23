@@ -5,12 +5,6 @@ This repository contains a **simulator** for educational and development purpose
 **Do NOT** use this code with real gas appliances, valves, or any hardware that controls fuel, gas, or other hazardous systems.
 Remote control of gas valves is dangerous and may be illegal. Consult certified professionals and follow all local regulations.
 
-- No code to interface with real hardware.
-- No instructions for bypassing safety systems.
-- Not for deployment in production environments controlling hazardous systems.
-A small Node.js + Express mock service that simulates a gas-valve state.
-- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
-## Usage (development)
 1. `git clone <this-repo>`
 2. `npm install`
 3. `npm start` (starts server on port 3000)
@@ -66,10 +60,12 @@ app.get('/status', (req, res) => {
   });
 });
 
-// Simulation endpoints — require explicit env var
-app.post('/simulate/open', (req, res) => {
-  if (!ENABLE_SIM) return res.status(403).json({ error: 'Simulator disabled. Set ENABLE_GAS_SIM=1 in env (development only).' });
-
+- No code to interface with real hardware.
+- No instructions for bypassing safety systems.
+- Not for deployment in production environments controlling hazardous systems.
+A small Node.js + Express mock service that simulates a gas-valve state.
+- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
+## Usage (development)
   // Simulate safety checks (purely logical)
   const allowed = true; // extend with rules for testing; still purely simulated
   if (!allowed) {
