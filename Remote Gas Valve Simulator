@@ -1,10 +1,6 @@
 # Remote Gas Valve Simulator (SAFE, For Development Only)
 
 **IMPORTANT — SAFETY NOTICE**
-This repository contains a **simulator** for educational and development purposes ONLY.
-**Do NOT** use this code with real gas appliances, valves, or any hardware that controls fuel, gas, or other hazardous systems.
-Remote control of gas valves is dangerous and may be illegal. Consult certified professionals and follow all local regulations.
-
 1. `git clone <this-repo>`
 2. `npm install`
 3. `npm start` (starts server on port 3000)
@@ -12,7 +8,9 @@ Remote control of gas valves is dangerous and may be illegal. Consult certified 
    - `GET /status` -> returns simulated state `{ "valve": "closed" }`
    - `POST /simulate/open` -> set simulated valve to "open" (logs action)
    - `POST /simulate/close` -> set simulated valve to "closed" (logs action)
-
+This repository contains a **simulator** for educational and development purposes ONLY.
+**Do NOT** use this code with real gas appliances, valves, or any hardware that controls fuel, gas, or other hazardous systems.
+Remote control of gas valves is dangerous and may be illegal. Consult certified professionals and follow all local regulations.
 ## Contributing
 - Keep changes limited to simulation, logging, testing, and UX improvements.
 - Never add hardware control code to this repository.
