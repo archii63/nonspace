@@ -1,107 +1,381 @@
-# Remote Gas Valve Simulator (SAFE, For Development Only)
+# Nexora Sentinel
 
-**IMPORTANT — SAFETY NOTICE**
-1. `git clone <this-repo>`
-2. `npm install`
-3. `npm start` (starts server on port 3000)
-4. Endpoints:
-   - `GET /status` -> returns simulated state `{ "valve": "closed" }`
-   - `POST /simulate/open` -> set simulated valve to "open" (logs action)
-   - `POST /simulate/close` -> set simulated valve to "closed" (logs action)
-This repository contains a **simulator** for educational and development purposes ONLY.
-**Do NOT** use this code with real gas appliances, valves, or any hardware that controls fuel, gas, or other hazardous systems.
-Remote control of gas valves is dangerous and may be illegal. Consult certified professionals and follow all local regulations.
-## Contributing
-- Keep changes limited to simulation, logging, testing, and UX improvements.
-- Never add hardware control code to this repository.
+**Nexora Sentinel** is a lightweight, extensible system monitoring and security auditing CLI built with Python.
+
+It provides a simple way to inspect system health, detect potentially exposed services, monitor important files, and generate machine-readable reports.
+
+## Features
+
+* 🖥️ CPU, RAM, and disk monitoring
+* 🔌 Open TCP port detection
+* 📁 File integrity monitoring
+* 📊 JSON report generation
+* ⚡ Lightweight and dependency-free core
+* 🧩 Modular architecture
+* 💻 Cross-platform design
+* 🤖 Suitable for automation and CI pipelines
+
+## Requirements
+
+* Python 3.10+
+* Linux, macOS, or Windows
+
+## Installation
+
+```bash
+git clone https://github.com/yourusername/nexora-sentinel.git
+cd nexora-sentinel
+
+python -m venv .venv
+source .venv/bin/activate
+
+pip install -r requirements.txt
+```
+
+On Windows:
+
+```powershell
+.venv\Scripts\activate
+```
+
+## Usage
+
+Run a complete system audit:
+
+```bash
+python sentinel.py audit
+```
+
+Check system resources:
+
+```bash
+python sentinel.py health
+```
+
+Scan listening TCP ports:
+
+```bash
+python sentinel.py ports
+```
+
+Generate a JSON report:
+
+```bash
+python sentinel.py report --output report.json
+```
+
+Monitor a directory for file changes:
+
+```bash
+python sentinel.py integrity --path ./config
+```
+
+## Example Output
+
+```text
+NEXORA SENTINEL
+────────────────────────────────────
+
+SYSTEM HEALTH
+
+CPU Usage       18.4%
+Memory Usage    42.7%
+Disk Usage      61.2%
+
+NETWORK
+
+Listening TCP Ports
+- 22
+- 80
+- 443
+- 8080
+
+INTEGRITY
+
+Files Checked   147
+Modified        2
+Added           0
+Removed         1
+
+STATUS          WARNING
+```
+
+## Project Structure
+
+```text
+nexora-sentinel/
+│
+├── sentinel.py
+├── requirements.txt
+├── README.md
+├── LICENSE
+│
+├── nexora/
+│   ├── __init__.py
+│   ├── system.py
+│   ├── network.py
+│   ├── integrity.py
+│   └── reporter.py
+│
+└── tests/
+    ├── test_system.py
+    ├── test_network.py
+    └── test_integrity.py
+```
+
+## Architecture
+
+Nexora Sentinel is designed around independent modules so additional monitoring capabilities can be added without changing the core application.
+
+```text
+                ┌──────────────────┐
+                │   CLI Interface  │
+                └────────┬─────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+   System Monitor   Network Scanner   Integrity Engine
+        │                │                │
+        └────────────────┼────────────────┘
+                         ▼
+                  Report Generator
+                         │
+                         ▼
+                    JSON / CLI
+```
+
+## Design Goals
+
+Nexora Sentinel focuses on four principles:
+
+1. **Minimal dependencies**
+   Keep the core small and easy to deploy.
+
+2. **Actionable information**
+   Reports should highlight conditions that actually require attention.
+
+3. **Automation first**
+   JSON output makes the tool suitable for scripts, monitoring systems, and CI workflows.
+
+4. **Extensibility**
+   New security and monitoring modules can be added independently.
+
+## Roadmap
+
+* [ ] YAML configuration
+* [ ] Scheduled monitoring
+* [ ] Email and webhook alerts
+* [ ] Process anomaly detection
+* [ ] Historical metrics
+* [ ] Docker support
+* [ ] GitHub Actions integration
+* [ ] Web dashboard
+* [ ] Plugin system
+
+## Security
+
+Nexora Sentinel is designed for defensive system monitoring and auditing.
+
+Only run network and file-integrity checks on systems you own or have explicit permission to monitor.
 
 ## License
-MIT
-/**
- * Remote Gas Valve Simulator (SAFE)
- * DO NOT CONNECT THIS TO REAL HARDWARE.
- *
- * This simple Express app simulates a gas valve for development and testing only.
- * It uses an in-memory state and logs requests. It intentionally DOES NOT include
- * any hardware libraries, network protocols for controllers, or credentials.
- */
 
-const express = require('express');
-const morgan = require('morgan');
+MIT License
 
-const app = express();
-app.use(express.json());
-app.use(morgan('dev'));
+Copyright (c) 2026 Nexora Sentinel contributors.
 
-## What this project is
-- A small Node.js + Express mock service that simulates a gas-valve state.
-- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
-- Provides endpoints to query simulated status and to request simulated actions (which only update an in-memory state and log events).
-- A small Node.js + Express mock service that simulates a gas-valve state.
-- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
-## Not allowed / Not provided
+````
 
-// In-memory simulated valve state
-let simulatedValveState = 'closed'; // possible values: 'closed', 'open'
+### `requirements.txt`
 
-// Utility: log with prominent safety prefix
-function safetyLog(message) {
-  console.log(`[GAS-SIM-SAFE] ${new Date().toISOString()} - ${message}`);
-}
-- A small Node.js + Express mock service that simulates a gas-valve state.
+```text
+psutil>=6.0.0
+````
 
-// Public status endpoint (safe)
-app.get('/status', (req, res) => {
-  res.json({
-    valve: simulatedValveState,
-    note: 'This is a SIMULATED state for development only. Do not use with real hardware.'
-  });
-});
+### `sentinel.py`
 
-- No code to interface with real hardware.
-- No instructions for bypassing safety systems.
-- Not for deployment in production environments controlling hazardous systems.
-A small Node.js + Express mock service that simulates a gas-valve state.
-- Useful for UI development, integration tests, and CI where you need a deterministic simulated device.
-## Usage (development)
-  // Simulate safety checks (purely logical)
-  const allowed = true; // extend with rules for testing; still purely simulated
-  if (!allowed) {
-    safetyLog('Attempt to open simulated valve denied by policy.');
-    return res.status(400).json({ error: 'Action not allowed by simulation policy.' });
-  }
+```python
+#!/usr/bin/env python3
 
-  simulatedValveState = 'open';
-  safetyLog('Simulated valve set to OPEN by client ' + (req.ip || 'unknown'));
-  res.json({ valve: simulatedValveState, simulated: true });
-});
+import argparse
+import hashlib
+import json
+import os
+import socket
+import sys
+from pathlib import Path
 
-app.post('/simulate/close', (req, res) => {
-  if (!ENABLE_SIM) return res.status(403).json({ error: 'Simulator disabled. Set ENABLE_GAS_SIM=1 in env (development only).' });
+import psutil
 
-  simulatedValveState = 'closed';
-  safetyLog('Simulated valve set to CLOSED by client ' + (req.ip || 'unknown'));
-  res.json({ valve: simulatedValveState, simulated: true });
-});
 
-// Health endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', simEnabled: ENABLE_SIM ? true : false });
-});
+APP_NAME = "Nexora Sentinel"
+VERSION = "1.0.0"
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Gas Valve Simulator (SAFE) listening on port ${port}. Simulator enabled: ${ENABLE_SIM ? 'YES' : 'NO'}`);
-});
-{
-  "name": "gas-valve-simulator-safe",
-  "version": "0.1.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "express": "^4.18.0",
-    "morgan": "^1.10.0"
-  }
-}
+
+def system_health():
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage(Path.cwd())
+
+    return {
+        "cpu_percent": psutil.cpu_percent(interval=1),
+        "memory_percent": memory.percent,
+        "disk_percent": disk.percent,
+    }
+
+
+def listening_ports():
+    ports = set()
+
+    for connection in psutil.net_connections(kind="tcp"):
+        if connection.status == psutil.CONN_LISTEN and connection.laddr:
+            ports.add(connection.laddr.port)
+
+    return sorted(ports)
+
+
+def file_hash(path):
+    digest = hashlib.sha256()
+
+    with open(path, "rb") as file:
+        for chunk in iter(lambda: file.read(65536), b""):
+            digest.update(chunk)
+
+    return digest.hexdigest()
+
+
+def integrity_scan(directory):
+    root = Path(directory)
+
+    if not root.exists():
+        raise FileNotFoundError(directory)
+
+    results = {}
+
+    for path in root.rglob("*"):
+        if path.is_file():
+            try:
+                results[str(path)] = file_hash(path)
+            except (PermissionError, OSError):
+                continue
+
+    return results
+
+
+def create_report(directory=None):
+    report = {
+        "application": APP_NAME,
+        "version": VERSION,
+        "system": system_health(),
+        "network": {
+            "listening_tcp_ports": listening_ports()
+        },
+    }
+
+    if directory:
+        report["integrity"] = integrity_scan(directory)
+
+    return report
+
+
+def print_health():
+    health = system_health()
+
+    print(f"\n{APP_NAME} {VERSION}")
+    print("─" * 38)
+    print("\nSYSTEM HEALTH\n")
+
+    for key, value in health.items():
+        label = key.replace("_", " ").title()
+        print(f"{label:<18} {value:.1f}%")
+
+
+def print_ports():
+    ports = listening_ports()
+
+    print(f"\n{APP_NAME}")
+    print("─" * 38)
+    print("\nLISTENING TCP PORTS\n")
+
+    if not ports:
+        print("No listening TCP ports detected.")
+        return
+
+    for port in ports:
+        print(f"- {port}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        prog="sentinel",
+        description="Nexora Sentinel system monitoring and security auditing CLI.",
+    )
+
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    subparsers.add_parser("health", help="Display system health.")
+    subparsers.add_parser("ports", help="List listening TCP ports.")
+
+    audit = subparsers.add_parser(
+        "audit",
+        help="Run a complete system audit."
+    )
+    audit.add_argument(
+        "--path",
+        default=None,
+        help="Directory to include in the integrity scan."
+    )
+
+    report = subparsers.add_parser(
+        "report",
+        help="Generate a JSON report."
+    )
+    report.add_argument(
+        "--output",
+        default="nexora-report.json",
+        help="Output file."
+    )
+    report.add_argument(
+        "--path",
+        default=None,
+        help="Directory to include in the integrity scan."
+    )
+
+    args = parser.parse_args()
+
+    try:
+        if args.command == "health":
+            print_health()
+
+        elif args.command == "ports":
+            print_ports()
+
+        elif args.command == "audit":
+            data = create_report(args.path)
+            print(json.dumps(data, indent=2))
+
+        elif args.command == "report":
+            data = create_report(args.path)
+
+            with open(args.output, "w", encoding="utf-8") as file:
+                json.dump(data, file, indent=2)
+
+            print(f"Report written to: {args.output}")
+
+    except (OSError, FileNotFoundError) as exc:
+        print(f"Error: {exc}", file=sys.stderr)
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+**GitHub tagline:**
+
+> A lightweight Python CLI for system health monitoring, network auditing, and file integrity analysis.
+
+این ساختار برای شروع یک repository واقعی مناسب است و بعداً می‌توانی با **Dashboard، Alert System و Plugin Architecture** آن را به یک پروژه بسیار جدی‌تر تبدیل کنی.
+
